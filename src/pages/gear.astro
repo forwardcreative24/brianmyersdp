@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { gear } from '../gear';
+---
+<Base title="Gear" description="Owned camera, lens, support and grip package, including an ARRI AMIRA, Leica R glass and a 1-ton grip truck.">
+  <section class="wrap page">
+    <h1>Gear</h1>
+    <p class="lede">{gear.intro} G&amp;E also rents on its own through <a href={gear.truck.href}>{gear.truck.text}</a>.</p>
+    <div class="gear">
+      {gear.groups.map((g) => (
+        <section>
+          <h2 class="kicker">{g.name}</h2>
+          <ul>{g.items.map((it) => <li>{it}</li>)}</ul>
+        </section>
+      ))}
+    </div>
+    <p class="mono fine">Updated {gear.updated}</p>
+  </section>
+</Base>

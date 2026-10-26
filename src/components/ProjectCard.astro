@@ -1,0 +1,21 @@
+---
+const { project, index = 0 } = Astro.props;
+const d = project.data;
+// What the sort buttons match against: the role, the format and any tags.
+const match = [d.role, d.format, ...d.tags].filter(Boolean).join('|');
+---
+<a class="card" href={`/work/${project.id}/`} data-match={match}>
+  <div class="frame">
+    <img src={d.image} alt={`Still from ${d.client}${d.title ? `, ${d.title}` : ''}`} loading={index < 4 ? 'eager' : 'lazy'} />
+    {d.loop && (
+      <video muted loop playsinline preload="none" aria-hidden="true">
+        <source src={d.loop} type="video/mp4" />
+      </video>
+    )}
+  </div>
+  <div class="card-meta">
+    <h3>{d.client}</h3>
+    <p class="mono">{d.role}</p>
+    <p class="sub">{[d.title, d.format].filter(Boolean).join(' · ')}</p>
+  </div>
+</a>
