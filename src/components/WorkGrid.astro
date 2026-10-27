@@ -1,0 +1,35 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { site } from '../site';
+const { projects, filters = site.filters } = Astro.props;
+---
+<div class="work">
+  {filters.length > 1 && (
+    <div class="filters" role="group" aria-label="Sort the work">
+      {filters.map((f, i) => <button type="button" class="filter mono" aria-pressed={i === 0 ? 'true' : 'false'} data-filter={i === 0 ? '' : f}>{f}</button>)}
+    </div>
+  )}
+  <div class="grid">
+    {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+  </div>
+  <p class="empty mono" hidden>Nothing here yet.</p>
+</div>
+<script is:inline>
+  // Sort buttons: show only the cards whose role, format or tags include the button's word ("Music videos" matches "Music video").
+  document.querySelectorAll('.work').forEach((work) => {
+    const buttons = [...work.querySelectorAll('.filter')];
+    const cards = [...work.querySelectorAll('.card')];
+    const norm = (s) => s.toLowerCase().replace(/s$/, '');
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const want = norm(b.dataset.filter);
+      let shown = 0;
+      cards.forEach((c) => {
+        const on = !want || c.dataset.match.split('|').some((m) => norm(m) === want);
+        c.hidden = !on;
+        if (on) shown++;
+      });
+      work.querySelector('.empty').hidden = shown > 0;
+    }));
+  });
+</script>

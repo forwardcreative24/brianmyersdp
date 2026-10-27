@@ -1,6 +1,8 @@
-// One address for search engines: anything that isn't www.brianmyersdp.com
-// (the bare domain) gets a 301 to the same path there.
-const HOME = 'www.brianmyersdp.com';
+// One address for search engines: anything that isn't brianmyersdp.com
+// (www.brianmyersdp.com) gets a 301 to the same path there.
+// Preview links (*.workers.dev) and local testing are left alone.
+const HOME = 'brianmyersdp.com';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);

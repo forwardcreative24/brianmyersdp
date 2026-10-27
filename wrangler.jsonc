@@ -1,12 +1,18 @@
+// Cloudflare builds the Astro site into dist/ and serves it as static files;
+// worker.js first sends every other hostname (www.brianmyersdp.com) to brianmyersdp.com.
 {
   "name": "brianmyersdp",
   "main": "worker.js",
   "compatibility_date": "2026-10-01",
+  // Runs before every deploy, so a push is all it takes.
+  "build": { "command": "npm run build" },
   "assets": {
-    "directory": "./",
+    "directory": "./dist",
     "binding": "ASSETS",
     "run_worker_first": true,
     "not_found_handling": "404-page",
-    "html_handling": "force-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash"
+  },
+  // Lets non-main branches build a preview link with `wrangler preview`.
+  "previews": {}
 }

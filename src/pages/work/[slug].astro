@@ -1,0 +1,146 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+const name = d.title ? `${d.client}, ${d.title}` : d.client;
+// vimeo is the number from vimeo.com/123456789, or 123456789/abc123 for an unlisted video.
+const playerSrc = (id: string, autoplay = true) => {
+  const [vid, hash] = id.split('/');
+  return `https://player.vimeo.com/video/${vid}?${hash ? `h=${hash}&` : ''}${autoplay ? 'autoplay=1&' : ''}title=0&byline=0&portrait=0&dnt=1`;
+};
+const playIcon = '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+---
+<Base title={d.title ? `${d.client}: ${d.title}` : d.client} image={d.image}>
+  <article class="project wrap">
+    <div class="player">
+      {d.vimeo ? (
+        <button class="player-poster" type="button" data-src={playerSrc(d.vimeo)} data-title={name} aria-label={`Play ${name}`}>
+          {d.loop ? (
+            <video autoplay muted loop playsinline poster={d.image} aria-hidden="true"><source src={d.loop} type="video/mp4" /></video>
+          ) : (
+            <img src={d.image} alt="" />
+          )}
+          <span class="play-btn" aria-hidden="true" set:html={playIcon} />
+        </button>
+      ) : d.loop ? (
+        <video autoplay muted loop playsinline poster={d.image} aria-label={`Clip from ${name}`}><source src={d.loop} type="video/mp4" /></video>
+      ) : (
+        <img src={d.image} alt={`Still from ${name}`} />
+      )}
+    </div>
+
+    <div class="project-body">
+      <header class="project-head">
+        <p class="kicker"><a href="/work/">Work</a> / {d.format}</p>
+        <h1>{d.client}</h1>
+        {d.title && <p class="project-title">{d.title}</p>}
+        <div class="prose"><Content /></div>
+      </header>
+      {d.credits.length > 0 && (
+        <dl class="credits">
+          {d.credits.map(([role, who]) => <div><dt>{role}</dt><dd>{who}</dd></div>)}
+        </dl>
+      )}
+    </div>
+
+    {d.more.length > 0 && (
+      <section class="more" aria-label="More from the job">
+        <p class="kicker">More from the job</p>
+        {d.more.map((m) => (
+          <div class="more-spot">
+            <div class="player">
+              <iframe src={playerSrc(m.vimeo, false)} title={`${d.client}, ${m.title}`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <h2>{m.title}</h2>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {d.stills.length > 0 && (
+      <section class="gallery" aria-label="Stills">
+        <p class="kicker">Stills</p>
+        <div class="stills">
+          {d.stills.map((src) => <img src={src} alt={`Still from ${name}`} loading="lazy" />)}
+        </div>
+      </section>
+    )}
+
+    <a class="next" href={`/work/${next.id}/`}>
+      <span class="next-text">
+        <span class="kicker">Next</span>
+        <span class="next-title">{next.data.client}</span>
+        <span class="mono">{[next.data.title, next.data.role].filter(Boolean).join(' · ')}</span>
+      </span>
+      <span class="next-frame"><img src={next.data.image} alt="" loading="lazy" /></span>
+    </a>
+
+    {d.stills.length > 0 && (
+      <dialog class="lightbox" aria-label="Stills" tabindex="-1">
+        <img alt="" />
+        <button type="button" class="lb-close" aria-label="Close">×</button>
+        <button type="button" class="lb-prev" aria-label="Previous">←</button>
+        <button type="button" class="lb-next" aria-label="Next">→</button>
+        <p class="lb-count mono"></p>
+      </dialog>
+    )}
+  </article>
+
+  <script is:inline>
+    // Tapping the still swaps in the Vimeo player, with sound.
+    document.querySelectorAll('.player-poster').forEach((b) => b.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      Object.assign(f, { src: b.dataset.src, title: b.dataset.title, allow: 'autoplay; fullscreen; picture-in-picture', allowFullscreen: true });
+      b.replaceWith(f);
+    }));
+    // Lightbox: tap a still to open it large; arrows, swipe or keys step through.
+    (() => {
+      const box = document.querySelector('.lightbox');
+      if (!box) return;
+      const big = box.querySelector('img');
+      const count = box.querySelector('.lb-count');
+      const shots = [...document.querySelectorAll('.stills img')];
+      let at = 0;
+      const show = (i) => {
+        at = (i + shots.length) % shots.length;
+        big.src = shots[at].src;
+        big.alt = shots[at].alt;
+        count.textContent = `${at + 1} / ${shots.length}`;
+      };
+      shots.forEach((img, i) => {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        const open = () => { show(i); box.showModal(); box.focus(); };
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      });
+      box.querySelector('.lb-prev').addEventListener('click', () => show(at - 1));
+      box.querySelector('.lb-next').addEventListener('click', () => show(at + 1));
+      box.querySelector('.lb-close').addEventListener('click', () => box.close());
+      box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') show(at - 1);
+        if (e.key === 'ArrowRight') show(at + 1);
+      });
+      let x0 = null;
+      box.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+    })();
+  </script>
+</Base>
