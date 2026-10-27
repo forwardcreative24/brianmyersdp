@@ -8,24 +8,7 @@ const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.da
 const featured = all.filter((p) => p.data.featured);
 ---
 <Base>
-  <section class="intro wrap">
-    <p class="statement">
-      {site.statement.map((line, i) => <span class:list={{ dim: i > 0 }}>{line} </span>)}
-    </p>
-  </section>
-
-  {site.reelLoop && (
-    <section class="reel wrap">
-      <div class="frame">
-        <video autoplay muted loop playsinline poster={site.reelPoster} aria-label="Reel"><source src={site.reelLoop} type="video/mp4" /></video>
-        {site.reel && (
-          <button class="reel-btn mono" type="button" data-src={`https://player.vimeo.com/video/${site.reel}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`}>Watch the reel</button>
-        )}
-      </div>
-    </section>
-  )}
-
-  <section class="wrap section">
+  <section class="wrap section section--first">
     <div class="section-head">
       <h2>Selected work</h2>
       <a class="mono" href="/work/">All work →</a>
@@ -38,11 +21,4 @@ const featured = all.filter((p) => p.data.featured);
     <p class="client-list">{site.clients.join(' · ')}</p>
   </section>
 
-  <script is:inline>
-    document.querySelectorAll('.reel-btn').forEach((b) => b.addEventListener('click', () => {
-      const f = document.createElement('iframe');
-      Object.assign(f, { src: b.dataset.src, title: 'Reel', allow: 'autoplay; fullscreen; picture-in-picture', allowFullscreen: true });
-      b.closest('.frame').replaceChildren(f);
-    }));
-  </script>
 </Base>

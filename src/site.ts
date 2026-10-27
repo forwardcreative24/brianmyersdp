@@ -7,15 +7,6 @@ export const site = {
   // or 'stacked' (the title on a small line under the name).
   wordmark: 'inline' as 'name' | 'inline' | 'stacked',
 
-  // The home page opener. Each entry is one line; the second one is set in grey.
-  statement: ['I shoot commercials, and sometimes direct them.', 'Careful with light, calm on set.'],
-  // A silent loop that plays full width under the statement (an .mp4 in public/video/), and the still shown until it plays.
-  // Set reelLoop to '' for no video on the home page.
-  reelLoop: '/video/mwa.mp4',
-  reelPoster: '/images/mwafcu/kickball-hero.jpg',
-  // Vimeo ID of a full reel with sound. Adds a "Watch the reel" button over the loop. Leave '' to hide it.
-  reel: '',
-
   description:
     'Brian Myers is a director of photography and director based in Fort Wayne, Indiana, shooting commercials and branded content for directors, agencies and brands.',
   email: 'brian@brianmyersdp.com',
