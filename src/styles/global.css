@@ -73,6 +73,8 @@ p { margin: 0; }
 .section { padding-top: clamp(56px, 8vw, 112px); }
 .section--first { padding-top: clamp(24px, 4vw, 56px); }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+.all-work { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: clamp(32px, 4vw, 56px); padding-block: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-decoration: none; font-size: var(--step-1); }
+.all-work:hover { color: var(--muted); }
 .clients { display: grid; gap: 14px; }
 .client-list { font-size: var(--step-1); line-height: 1.5; max-width: 50ch; }
 
@@ -84,6 +86,8 @@ p { margin: 0; }
 .filter:hover { color: var(--paper); border-color: var(--muted); }
 .filter[aria-pressed='true'] { color: var(--ink); background: var(--paper); border-color: var(--paper); }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 52px) clamp(16px, 2.5vw, 32px); }
+/* Work page: three up on wide screens, so it reads differently from the home grid. Card text steps down a touch to fit. */
+@media (min-width: 1000px) { .grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } .grid--three .card-meta { font-size: 0.92rem; } }
 @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 .empty { padding-block: 24px; }
 .card { text-decoration: none; display: grid; gap: 12px; align-content: start; }

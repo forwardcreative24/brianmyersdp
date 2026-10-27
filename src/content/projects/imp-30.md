@@ -2,7 +2,7 @@
 client: "Indiana Michigan Power"
 title: "Win-Win"
 format: "Commercial :30"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Indiana Michigan Power"]
   - ["Agency", "One Lucky Guitar"]

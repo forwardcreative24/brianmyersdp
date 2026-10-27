@@ -8,6 +8,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 <Base title="Work">
   <section class="wrap page">
     <h1>Work</h1>
-    <WorkGrid projects={projects} />
+    <WorkGrid projects={projects} columns={3} />
   </section>
 </Base>

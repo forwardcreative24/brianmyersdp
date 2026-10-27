@@ -11,9 +11,9 @@ const featured = all.filter((p) => p.data.featured);
   <section class="wrap section section--first">
     <div class="section-head">
       <h2>Selected work</h2>
-      <a class="mono" href="/work/">All work →</a>
     </div>
     <WorkGrid projects={featured} filters={[]} />
+    <a class="all-work" href="/work/"><span>See all work</span><span aria-hidden="true">→</span></a>
   </section>
 
   <section class="wrap section clients">

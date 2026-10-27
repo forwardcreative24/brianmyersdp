@@ -8,10 +8,9 @@ credits:
   - ["Director", "Jack Linderman"]
   - ["Director of photography", "Brian Myers"]
 vimeo: "995086896"
-image: "/images/hancock/cover.jpg"
+image: "/images/hancock/barn-wide.jpg"
 stills:
-  - "/images/hancock/01.jpg"
-  - "/images/hancock/02.jpg"
+  - "/images/hancock/cover.jpg"
 order: 3
 featured: true
 ---
