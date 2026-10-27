@@ -31,7 +31,10 @@ const tel = site.phone.replace(/\D/g, '');
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={shareImage} />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Bump ?v= when the icon changes, so browsers drop the one they saved. -->
+    <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
@@ -90,23 +93,15 @@ const tel = site.phone.replace(/\D/g, '');
       <p class="fine mono">© {new Date().getFullYear()} {site.name}</p>
     </footer>
     <script is:inline>
-      // Card loops: on a computer they play while the mouse is over the card; on phones, whichever card is on screen plays.
+      // Card loops play only while the mouse is over a card, on a computer. Phones and tablets
+      // keep the still frame; the loop plays up top on the project page instead.
       (() => {
-        const vids = [...document.querySelectorAll('.card video')];
-        if (!vids.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const play = (v) => v.play().then(() => v.classList.add('is-playing')).catch(() => {});
-        const stop = (v) => { v.classList.remove('is-playing'); v.pause(); };
-        if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-          for (const v of vids) {
-            const card = v.closest('.card');
-            card.addEventListener('mouseenter', () => play(v));
-            card.addEventListener('mouseleave', () => { stop(v); v.currentTime = 0; });
-          }
-        } else {
-          const io = new IntersectionObserver((entries) => {
-            for (const e of entries) e.isIntersecting ? play(e.target) : stop(e.target);
-          }, { threshold: 0.6 });
-          vids.forEach((v) => io.observe(v));
+        if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        for (const v of document.querySelectorAll('.card video')) {
+          const card = v.closest('.card');
+          card.addEventListener('mouseenter', () => v.play().then(() => v.classList.add('is-playing')).catch(() => {}));
+          card.addEventListener('mouseleave', () => { v.classList.remove('is-playing'); v.pause(); v.currentTime = 0; });
         }
       })();
     </script>

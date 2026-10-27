@@ -9,7 +9,7 @@ credits:
   - ["Director of photography", "Brian Myers"]
   - ["Talent", "Cameron Graber"]
 vimeo: "1229566279"
-image: "/images/fwtrees/tree-wide.jpg"
+image: "/images/fwtrees/mirror-close.jpg"
 loop: "/video/fwt.mp4"
 stills:
   - "/images/fwtrees/mirror.jpg"
