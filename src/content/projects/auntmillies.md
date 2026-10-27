@@ -2,7 +2,7 @@
 client: "Aunt Millie's"
 title: "Closer to Home"
 format: "Commercial :30"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Aunt Millie's"]
   - ["Agency", "Brand Innovation Group"]

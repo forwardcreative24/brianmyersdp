@@ -1,7 +1,8 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 import { site } from '../site';
-const { projects, filters = site.filters } = Astro.props;
+// columns: 2 (home page) or 3 (the work page, so it doesn't look like the home grid).
+const { projects, filters = site.filters, columns = 2 } = Astro.props;
 ---
 <div class="work">
   {filters.length > 1 && (
@@ -9,13 +10,13 @@ const { projects, filters = site.filters } = Astro.props;
       {filters.map((f, i) => <button type="button" class="filter mono" aria-pressed={i === 0 ? 'true' : 'false'} data-filter={i === 0 ? '' : f}>{f}</button>)}
     </div>
   )}
-  <div class="grid">
+  <div class:list={['grid', { 'grid--three': columns === 3 }]}>
     {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
   </div>
   <p class="empty mono" hidden>Nothing here yet.</p>
 </div>
 <script is:inline>
-  // Sort buttons: show only the cards whose role, format or tags include the button's word ("Music videos" matches "Music video").
+  // Sort buttons: show only the cards whose role, format or tags include the button's word (a plural "s" is ignored).
   document.querySelectorAll('.work').forEach((work) => {
     const buttons = [...work.querySelectorAll('.filter')];
     const cards = [...work.querySelectorAll('.card')];

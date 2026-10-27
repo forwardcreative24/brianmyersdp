@@ -7,11 +7,11 @@ const projects = defineCollection({
     client: z.string(),
     // The spot or piece name, e.g. "Join In". Leave '' when the client name says it all.
     title: z.string().default(''),
-    // What it is, shown in small caps on the card: "Commercial :30", "Music video", "Brand film".
+    // What it is, shown in small caps on the card: "Commercial :30", "Brand film", "Product film".
     format: z.string(),
     // Your role on it. Shown on the card and used by the sort buttons. '' for none (e.g. a photo series).
-    role: z.enum(['Director & DP', 'DP', 'Director', '']).default(''),
-    // Extra words the sort buttons match on, e.g. ["Music videos"] or ["Personal"].
+    role: z.enum(['DP & Director', 'DP', 'Director', '']).default(''),
+    // Extra words the sort buttons match on, e.g. ["Personal"].
     tags: z.array(z.string()).default([]),
     // As many credit lines as you like, in order: [Role, Name].
     credits: z.array(z.tuple([z.string(), z.string()])).default([]),

@@ -2,7 +2,7 @@
 client: "Revival Food Co"
 title: "Revive Your Every Day"
 format: "Brand film"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Revival Food Co"]
   - ["Director", "Brian Myers"]

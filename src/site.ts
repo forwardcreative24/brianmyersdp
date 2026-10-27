@@ -20,7 +20,7 @@ export const site = {
 
   // Buttons above the work grid. Each one shows the projects whose role, type or tags match its label.
   // Set to [] to hide the buttons.
-  filters: ['All', 'Director & DP', 'DP', 'Music videos', 'Personal'],
+  filters: ['All', 'DP & Director', 'DP'],
 };
 
 // Main menu, shared by the header and the phone menu.

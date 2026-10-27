@@ -2,7 +2,7 @@
 client: "Fort Wayne Trees"
 title: "Dale & Gerald"
 format: "Commercial :30"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Fort Wayne Trees"]
   - ["Director", "Brian Myers"]

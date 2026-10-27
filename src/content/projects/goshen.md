@@ -2,7 +2,7 @@
 client: "Goshen Center for Cancer Care"
 title: "Closer Than You Think"
 format: "Commercial :30"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Goshen Health"]
   - ["Agency", "Brand Innovation Group"]

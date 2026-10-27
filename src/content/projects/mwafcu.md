@@ -2,7 +2,7 @@
 client: "Midwest America FCU"
 title: "Join In"
 format: "Commercial :30"
-role: "Director & DP"
+role: "DP & Director"
 credits:
   - ["Client", "Midwest America Federal Credit Union"]
   - ["Director", "Brian Myers"]
