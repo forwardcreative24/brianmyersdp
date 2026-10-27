@@ -1,14 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import WorkGrid from '../components/WorkGrid.astro';
 import { site } from '../site';
-// Behind-the-scenes photos for the grid under the text, in order.
-const photos = Array.from({ length: 17 }, (_, i) => `/images/about/${String(i + 1).padStart(2, '0')}.jpg`);
+// Personal projects (tagged "Personal" in their project file) show under the bio.
+const personal = (await getCollection('projects')).filter((p) => p.data.tags.includes('Personal')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title="About">
   <section class="wrap page about">
     <h1>About</h1>
     <div class="about-grid">
-      <img class="portrait" src="/images/portrait.jpg" alt={`${site.name} on set`} />
+      <img class="portrait" src="/images/portrait-bw.jpg" alt={`${site.name} on set with an ARRI ALEXA Mini LF`} />
       <div class="prose lede">
         <p>I'm Brian, a DP and director based in Indiana. I love working with a team to craft tasteful imagery for commercial, cine-doc, and high-end corporate projects. I shoot for directors and agencies, and direct when a project calls for it.</p>
         <p>My goal is to bring a positive attitude, clear vision, and professional excellence to every job. I've worked with big brands you've heard of ({site.clients.join(', ')}) and a bunch of smaller businesses and organizations you probably haven't.</p>
@@ -16,8 +18,11 @@ const photos = Array.from({ length: 17 }, (_, i) => `/images/about/${String(i + 
         <p>I have three kids, a lot of cameras, and a soft spot for sci-fi.</p>
       </div>
     </div>
-    <div class="stills bts">
-      {photos.map((src) => <img src={src} alt="Behind the scenes" loading="lazy" />)}
-    </div>
+    {personal.length > 0 && (
+      <section class="section personal">
+        <div class="section-head"><h2>Personal</h2></div>
+        <WorkGrid projects={personal} filters={[]} />
+      </section>
+    )}
   </section>
 </Base>
