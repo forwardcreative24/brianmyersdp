@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#17181a"/><text x="32" y="43" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="30" fill="#ecebe8">BM</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Cinema camera: two film reels on a body, with the matte box out front. -->
+  <rect width="64" height="64" rx="12" fill="#141517"/>
+  <g fill="#ecebe8">
+    <circle cx="16" cy="18" r="8.5"/>
+    <circle cx="33" cy="16" r="10.5"/>
+    <rect x="6" y="29" width="38" height="23" rx="3"/>
+    <path d="M44 35 L59 27 V54 L44 46 Z"/>
+  </g>
+</svg>
