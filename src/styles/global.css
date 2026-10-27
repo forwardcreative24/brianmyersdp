@@ -91,8 +91,9 @@ p { margin: 0; }
 @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 .empty { padding-block: 24px; }
 .card { text-decoration: none; display: grid; gap: 12px; align-content: start; }
-.frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
-.frame img, .frame video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.3s; }
+/* Stills and loops are never cropped: letterbox bars in a frame are part of the image. */
+.frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+.frame img, .frame video { width: 100%; height: 100%; object-fit: contain; transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.3s; }
 .card .frame video { position: absolute; inset: 0; opacity: 0; }
 .card .frame video.is-playing { opacity: 1; }
 .card:hover .frame img, .card:hover .frame video { transform: scale(1.03); }
@@ -105,9 +106,9 @@ p { margin: 0; }
 .player { position: relative; aspect-ratio: 16 / 9; background: #000; }
 /* The main video sits inset, sized so it fits a laptop screen with the title peeking below. */
 .project > .player { width: min(100%, 1120px, (100svh - 220px) * 16 / 9); margin-inline: auto; }
-.player > img, .player > video, .player iframe, .player-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+.player > img, .player > video, .player iframe, .player-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: contain; }
 .player-poster { padding: 0; background: none; cursor: pointer; color: var(--paper); }
-.player-poster img, .player-poster video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-poster img, .player-poster video { width: 100%; height: 100%; object-fit: contain; display: block; }
 .play-btn { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: rgba(20, 21, 23, 0.55); border: 1px solid rgba(236, 235, 232, 0.5); backdrop-filter: blur(6px); transition: background 0.2s, color 0.2s; }
 .player-poster:hover .play-btn { background: var(--paper); color: var(--ink); }
 .project-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 96px); padding-block: clamp(28px, 4vw, 56px); border-bottom: 1px solid var(--line); }
@@ -127,13 +128,13 @@ p { margin: 0; }
 .more, .gallery { padding-top: clamp(40px, 5vw, 64px); display: grid; gap: 18px; }
 .more-spot { display: grid; gap: 12px; }
 .stills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 16px); }
-.stills img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; background: var(--panel); }
+.stills img { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; cursor: zoom-in; background: #000; }
 @media (max-width: 600px) { .stills { grid-template-columns: 1fr; } }
 .next { margin-top: clamp(56px, 7vw, 96px); padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr minmax(0, 40%); gap: 24px; align-items: center; text-decoration: none; }
 .next-text { display: grid; gap: 8px; }
 .next-title { font-size: var(--step-3); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
-.next-frame { aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
-.next-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+.next-frame { aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+.next-frame img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
 .next:hover .next-frame img { transform: scale(1.03); }
 @media (max-width: 600px) { .next { grid-template-columns: 1fr; } .next-frame { order: -1; } }
 
