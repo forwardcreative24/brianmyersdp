@@ -1,10 +1,10 @@
 /* A dark screening-room page: stills two-up, credits in small mono, nothing else competing with the frames. */
 :root {
-  --ink: #141517;
-  --panel: #1e1f22;
-  --line: #2e3034;
-  --paper: #ecebe8;
-  --muted: #8d9097;
+  --ink: #1b1917;
+  --panel: #252220;
+  --line: #38342f;
+  --paper: #ede9e2;
+  --muted: #979087;
 
   --sans: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
@@ -108,7 +108,7 @@ p { margin: 0; }
 .player > img, .player > video, .player iframe, .player-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 .player-poster { padding: 0; background: none; cursor: pointer; color: var(--paper); }
 .player-poster img, .player-poster video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.play-btn { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: rgba(20, 21, 23, 0.55); border: 1px solid rgba(236, 235, 232, 0.5); backdrop-filter: blur(6px); transition: background 0.2s, color 0.2s; }
+.play-btn { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: rgba(27, 25, 23, 0.55); border: 1px solid rgba(237, 233, 226, 0.5); backdrop-filter: blur(6px); transition: background 0.2s, color 0.2s; }
 .player-poster:hover .play-btn { background: var(--paper); color: var(--ink); }
 .project-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 96px); padding-block: clamp(28px, 4vw, 56px); border-bottom: 1px solid var(--line); }
 @media (max-width: 760px) { .project-body { grid-template-columns: 1fr; } }
@@ -138,7 +138,7 @@ p { margin: 0; }
 @media (max-width: 600px) { .next { grid-template-columns: 1fr; } .next-frame { order: -1; } }
 
 /* Lightbox */
-.lightbox { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(10, 10, 11, 0.96); color: var(--paper); }
+.lightbox { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(13, 12, 11, 0.96); color: var(--paper); }
 .lightbox[open] { display: grid; place-items: center; outline: none; }
 .lightbox::backdrop { background: transparent; }
 .lightbox img { max-width: calc(100vw - 2 * var(--gutter)); max-height: calc(100vh - 120px); object-fit: contain; cursor: default; }
