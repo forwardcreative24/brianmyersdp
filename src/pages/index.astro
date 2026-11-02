@@ -40,7 +40,8 @@ const tel = site.phone.replace(/\D/g, '');
     </div>
   </section>
 
-  <section class="wrap section" aria-label="Contact">
+  <section class="bone" aria-label="Contact">
+    <div class="wrap">
     <dl class="roll">
       <dt>Director of photography</dt><dd>{site.name}</dd>
       <dt>Director</dt><dd>{site.name}</dd>
@@ -51,5 +52,6 @@ const tel = site.phone.replace(/\D/g, '');
       <div class="gap" role="presentation"></div>
       <dt>Selected clients</dt><dd class="list">{site.clients.join(', ')}</dd>
     </dl>
+    </div>
   </section>
 </Base>

@@ -90,6 +90,10 @@ p { margin: 0; }
 .roll dd a { text-decoration: none; }
 .roll dd a:hover { color: var(--accent); }
 .roll dd.list { font-size: clamp(0.9rem, 1.2vw, 1.1rem); line-height: 1.5; font-stretch: 100%; font-weight: 400; text-transform: none; }
+/* Bone band: the one light section, so the page isn't all dark. */
+.bone { --paper: #1f2226; --muted: #6f6a62; --accent: #3f5d76; --line: #cfc7b9; background: #ece6dc; color: var(--paper); margin-top: clamp(56px, 8vw, 112px); padding-bottom: clamp(32px, 5vw, 80px); }
+.bone :focus-visible { outline-color: var(--paper); }
+body:has(.bone) .footer { margin-top: 0; border-top: 0; }
 .roll .gap { grid-column: 1 / -1; height: clamp(10px, 1.6vw, 24px); }
 @media (max-width: 600px) { .roll { grid-template-columns: minmax(0, 1fr); text-align: center; gap: 4px; } .roll dt { text-align: center; padding-top: 14px; } }
 .section { padding-top: clamp(56px, 8vw, 112px); }
