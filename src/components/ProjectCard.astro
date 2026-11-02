@@ -15,7 +15,7 @@ const match = [d.role, d.format, ...d.tags].filter(Boolean).join('|');
   </div>
   <div class="card-meta">
     <h3>{d.client}</h3>
-    <p class="mono">{d.role}</p>
-    <p class="sub">{[d.title, d.format].filter(Boolean).join(' · ')}</p>
+    {d.role === 'DP & Director' ? <span class="tag">Dir + DP</span> : <span></span>}
+    <p class="mono">{[d.title, d.format, d.role === 'DP & Director' ? '' : d.role].filter(Boolean).join(' · ')}</p>
   </div>
 </a>
