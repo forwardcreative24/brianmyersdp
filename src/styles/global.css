@@ -1,11 +1,11 @@
 /* A dark screening room: the frame first, a camera slate under it, credits in small mono,
    names set wide. One cool accent (stone blue) used sparingly. */
 :root {
-  --ink: #101011;
-  --panel: #17171a;
-  --line: #2a2a2d;
+  --ink: #24272b;
+  --panel: #2d3136;
+  --line: #41464d;
   --paper: #ece6dc;
-  --muted: #8e8a84;
+  --muted: #a09d98;
   --accent: #8fa9bf;
 
   --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
