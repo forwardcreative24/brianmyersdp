@@ -6,19 +6,50 @@ import { site } from '../site';
 
 const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const featured = all.filter((p) => p.data.featured);
+// The frame strip: interview and cine-doc stills.
+const interviews = all.find((p) => p.id === 'interviews');
+const frames = interviews ? [interviews.data.image, ...interviews.data.stills] : [];
+const tel = site.phone.replace(/\D/g, '');
 ---
 <Base>
-  <section class="wrap section section--first">
+  <img class="opener" src="/images/frames/river.jpg" alt="A mother and son embrace waist-deep in a river at dusk while a man looks on" fetchpriority="high" />
+  <section class="wrap slate">
+    <h1>{site.name}</h1>
+    <dl>
+      <dt>Role</dt><dd>Director of photography / Director</dd>
+      <dt>Work</dt><dd>Commercial · Cine-doc · Branded film</dd>
+      <dt>Base</dt><dd>{site.location}</dd>
+    </dl>
+  </section>
+
+  <section class="wrap section">
     <div class="section-head">
       <h2>Selected work</h2>
     </div>
-    <WorkGrid projects={featured} filters={[]} />
+    <WorkGrid projects={featured} filters={[]} columns={3} />
     <a class="all-work" href="/work/"><span>See all work</span><span aria-hidden="true">→</span></a>
   </section>
 
-  <section class="wrap section clients">
-    <p class="kicker">Worked with</p>
-    <p class="client-list">{site.clients.join(' · ')}</p>
+  <section class="wrap section">
+    <div class="section-head">
+      <h2>Frames</h2>
+      <span class="mono">Scroll →</span>
+    </div>
+    <div class="strip" tabindex="0" aria-label="Frames">
+      {frames.map((src) => <img src={src} alt="" loading="lazy" />)}
+    </div>
   </section>
 
+  <section class="wrap section" aria-label="Contact">
+    <dl class="roll">
+      <dt>Director of photography</dt><dd>{site.name}</dd>
+      <dt>Director</dt><dd>{site.name}</dd>
+      <div class="gap" role="presentation"></div>
+      <dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      <dt>Call / text</dt><dd><a href={`tel:${tel}`}>{site.phone}</a></dd>
+      <dt>Instagram</dt><dd><a href={site.instagram} target="_blank" rel="noopener">@brianmyersdp</a></dd>
+      <div class="gap" role="presentation"></div>
+      <dt>Selected clients</dt><dd class="list">{site.clients.join(', ')}</dd>
+    </dl>
+  </section>
 </Base>
